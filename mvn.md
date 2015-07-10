@@ -1,7 +1,7 @@
 有时候你自己的项目依赖了一些jar包在公司私服上面没有 又不好找SA去加 就选择在本地安装相应的jar包吧  
 一般寻找jar包去[官网](https://repository.sonatype.org/index.html)  
 找到对应的维度信息如：  
-`<dependency>
+`<dependency>  
   <groupId>org.junit</groupId>
   <artifactId>com.springsource.org.junit</artifactId>
   <version>4.7.0</version>
