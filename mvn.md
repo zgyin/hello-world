@@ -8,3 +8,5 @@
 </dependency>`  
 使用下面命令安装到本地：  
 对应上面例子:`mvn install:install-file -Dfile=E:\extraJar\com.springsource.org.junit-4.7.0.jar -DgroupId=org.junit  -DartifactId=com.springsource.org.junit -Dversion=4.7.0 -Dpackaging=jar`
+
+![赫本](https://cloud.githubusercontent.com/assets/5373560/8653835/4eed78cc-29b9-11e5-8e21-369bb0a39966.jpeg)
