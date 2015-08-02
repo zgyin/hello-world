@@ -1,0 +1,130 @@
+angular-ui/ui-router笔记
+
+<!-- index.html -->
+<body ng-controller="MianCtrl">
+	<section ui-view></setction>
+</body>
+
+$stateProvide.state('contacts',{
+	template:'<h1> My title</h1>'
+});
+
+A：template应该插入在哪里？
+Q：当一个状态被激活，它的模版会自动插入到 父状态模版(parent state's template)的ui-view
+A：怎么激活一个状态？
+Q：3种方式激活
+	1.调用$.state.go() 
+	2.点击一个含有 ui-serf 指令的链接
+	3.导航到相关到状态的url （Navigate to the url associated with the state.）
+
+适配状态的模板
+	最直观的 通过template配置属性 template:'<a > </a>'
+	也可以通过 templateUrl:'contacts.html' 
+			  templateUrl: function ($stateParams){
+			  	return '/a/b.'+$stataParames.filterBy+'.html';		
+			  } 
+    也可以通过（能被注入的）模板提供函数 返回值必须是Html
+    	templateProvider: function ($timeout, $stateParams) {
+    		return $timeout(function () {
+    			return '<h1>' +$stateParams.contactId +'</h1>'
+    		}, 100);
+    	}
+在状态激活前你也可以放些默认内容在这里 状态被激活这里被自动替换
+
+controllers
+对模板配置一个controller（如果模板没有被定义 controller将不会实例化）
+
+
+Resolve
+通过resolve为controller提供content或state定制的数据
+controller与resolve的关系
+the controller waits for every one of the above items to be completely resolved before instantiation.
+after those objects(resover) are injected into the controller and availabel for use.
+
+resolve property（map object contains key/value pairs of）
+ key：对应着依赖 将被注入到controller里面
+ value：如果是字符串 则对应service的别名 如果是函数，函数返回值被当作一个依赖注入到controller 
+ key-{String}:a name of a dependency to be injected into controller
+ factory-{string|function}:
+$stateProvider.state('myState', {
+	resover: {
+		simpleObj: function(){
+			return {
+				value: 'simple';
+			};
+		},
+		//通过使用返回promise的函数 需要借助一些服务 如本例$http 通过$http返回期待的 url date
+		promiseObj: function($http){
+			return $http({
+				method: 'GET',
+				url: 'xxx/xxx'
+			});
+		},
+		//也是通过返回期望函数 通过.then()拿到数据后做点其它操作
+		promiseObj2: function($http){
+			return $http({method: 'GET', url: 'xxx/xxx'})
+				.then(function(data){
+					return doSomeStuffFrist(data);
+				});
+		},
+		//通过 字符串 service 它会在模块内寻找并返回transSevic 注：这个service也可以放回上面2个例子的期望函数
+		translations: 'transSevice',
+		//向解析函数注入service 然后service返回一个promise 
+		translations2: function(transService, $stateParams){
+			//注入$stateParams服务获取url相关参数 
+			return transServie.getLang($stateParams.lang);
+		},
+		//返回自定义的promise
+		geeting: function($q, $timeout){
+			var deferred = $q.defer();
+			$timeout(function() {
+				deferred.resolve('hello!');
+			},1000)
+		}
+	},
+	controller: function($scope, simpleObj, promiseObj, promiseObj2, translations, translations2, greeting){
+		$scope.simple = simpleObj.value;
+		$scope.items = promiseObj.data.items;
+		$socpe.items = promiseObj2.items;
+
+		$scope.title = translations.getLang("english").title;
+		$scope.title = translations.title;
+
+		$scope.greeting = greeting;
+	}
+})
+
+为状态赋值 （基于对象的state 和基于String的state）
+	var contacts = {
+		name: 'contacts',
+		templateUrl: 'contacts.html',
+		data: {
+			customData1: 5,
+			customData2: 'bule'
+		}
+	};
+	$stateProvider
+		.state(contacts)
+		.state('contancts.list',{
+			templateUrl: 'contacts.list.html',
+			data: {
+				customData1: '22',
+				customData2: 'red'
+			}
+		});
+
+测试 访问赋值后的数据
+function Ctrl($state){
+    console.log($state.current.data.customData1) // outputs 5;
+    console.log($state.current.data.customData2) // outputs "blue";
+}
+
+state 对应事件 所有事件发生在 $rootScope 级别
+	$stateChangeStart 
+	$stateNotFound
+	$stateChangeSuccess
+	$stateChangeError
+
+view 加载事件
+	$viewContentLoading 发生在view开始加载时 在dom渲染之前 $rootScope 广播这个事件
+	$viewContentloaded view加载完成 在dom渲染之后 The '$scope' 对应的vi
