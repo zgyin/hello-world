@@ -8,7 +8,12 @@ ST2添加插件：
 view in browser(插件安装完设置快捷键：preference - Key Banding-User 
           加入快捷键［可自定义］：{ "keys": ["command+shift+enter"], "command": "open_in_browser" }  mac:command windows:ctrl) 
 Live Reload(配合Chrome的对应的LiveReload扩展可以不用F5 直接保存看效果 赞一个
+          勾选 “允许访问文件网址”
           扩展地址：http://www.chromein.com/crx_11631.html )   
+
+
+现在使用步骤是 编辑完html 后直接command shift enter(第一次调用浏览器)  以后ctrl s 直接看效果
+
 
 参考链接：
 http://www.yunxiu.org/sublime-text23-livestyle-reload/
