@@ -1,0 +1,14 @@
+晚上在Chorme和ST2上安装了几个插件 记录一下：
+在mac里面编辑完html页面后 总是要通过Finder找到文件然后 右键 通过Chrome打开比较麻烦
+于是搜索了一下 
+
+ST2添加插件：
+太久没安装插件了 忘了怎么装 记录一下：
+          command shift p -> pci(package controller install 等待输入框) -> 输入相应插件名称
+view in browser(插件安装完设置快捷键：preference - Key Banding-User 
+          加入快捷键［可自定义］：{ "keys": ["command+shift+enter"], "command": "open_in_browser" }  mac:command windows:ctrl) 
+Live Reload(配合Chrome的对应的LiveReload扩展可以不用F5 直接保存看效果 赞一个
+          扩展地址：http://www.chromein.com/crx_11631.html )   
+
+参考链接：
+http://www.yunxiu.org/sublime-text23-livestyle-reload/
