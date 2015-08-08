@@ -11,9 +11,11 @@ Live Reload(配合Chrome的对应的LiveReload扩展可以不用F5 直接保存�
           勾选 “允许访问文件网址”
           扩展地址：http://www.chromein.com/crx_11631.html )   
 
-
 现在使用步骤是 编辑完html 后直接command shift enter(第一次调用浏览器)  以后ctrl s 直接看效果
-
 
 参考链接：
 http://www.yunxiu.org/sublime-text23-livestyle-reload/
+
+2015-08-08 补充：
+emmet
+http://www.qianduan.net/essential-to-sublime-the-text-2-plugins/
