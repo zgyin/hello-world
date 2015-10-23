@@ -18,4 +18,8 @@ http://www.yunxiu.org/sublime-text23-livestyle-reload/
 
 2015-08-08 补充：
 emmet
-http://www.qianduan.net/essential-to-sublime-the-text-2-plugins/
+http://www.qianduan.net/essential-to-sublime-the-text-2-plugins/  
+
+github 访问加速 纯手工肉扛方式
+通过 http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo 获取最新的ip 改host
+
