@@ -13,7 +13,7 @@ b依然持有A
 [js连等赋值问题](http://segmentfault.com/q/1010000002637728)  
 [在线js运行时值查看工具](http://pythontutor.com/visualize.html#mode=display)ps:支持java python ruby图形显示 👍  
 
-#### 2.在函数内 使用连等 会让变量变为全局变量  
+#### 2.在函数内 使用连等 会让变量变为全局变量（全局变量可能不准确）  
 <pre><code>  
   function test () {  
     var a = b = c = 1;  
@@ -22,4 +22,6 @@ b依然持有A
   test();  
   console.log( typeof( a ), a  ); //会报错  
   console.log( typeof( b ), b ); //输出 number，1
-</code></pre>
+</code></pre>  
+参考：
+[Javascript 中连等号的使用](http://www.w3cfuns.com/blog-5432377-5403481.html) 
