@@ -16,8 +16,8 @@ b依然持有A
 #### 2.在函数内 使用连等 会让变量变为全局变量  
 <pre><code>  
   function test () {  
-  var a = b = c = 1;  
-  console.log( typeof( a ), a );  
+    var a = b = c = 1;  
+    console.log( typeof( a ), a );  
   }  
   test();  
   console.log( typeof( a ), a  ); //会报错  
