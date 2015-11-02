@@ -128,3 +128,56 @@ state 对应事件 所有事件发生在 $rootScope 级别
 view 加载事件
 	$viewContentLoading 发生在view开始加载时 在dom渲染之前 $rootScope 广播这个事件
 	$viewContentloaded view加载完成 在dom渲染之后 The '$scope' 对应的vi
+
+
+今天看xdiamond js部分代码时候对ui-router对状态嵌套之抽象嵌套和继承嵌套回顾了一下
+特点：一个抽象状态可以有子状态但不显示激活 它将被隐式激活当其子状态被激活时
+请记住：抽象的状态模板仍然需要<ui-view/>，来让自己的子状态模板插入其中。因此，如果您使用抽象状态只是为了预提供基url、提供解决依赖项或者自定义data、运行onEnter/Exit函数，你任然需要设置template: "<ui-view/>"。
+
+ 形式及参数：
+  abstract: true,
+  url: '/contacts', 为所有子状态预提供一个基url
+  template: '<ui-view/>'  Note: abstract still needs a ui-view for its children to populate
+		在父状态中设置template属性，子状态对应的模板将插入到父状态模板中的ui-view(s)中
+  resolve: 为所有子状态提供解决依赖项
+  data: 为所有子状态或者事件监听函数提供自定义数据
+  
+
+状态嵌套的三种方式： contacts.list  或者parent: 'contacts' 或者 parent: contacts（contacts 是一个状态对象）
+$stateProvider
+  .state('contacts', {})
+  .state('contacts.list', {});
+ 
+$stateProvider
+  .state('contacts', {})
+  .state('list', {
+    parent: 'contacts'
+  });
+
+var contacts = { 
+    name: 'contacts',  //mandatory
+    templateUrl: 'contacts.html'
+}
+var contactsList = { 
+    name: 'list',      //mandatory
+    parent: contacts,  //mandatory
+    templateUrl: 'contacts.list.html'
+}
+$stateProvider
+  .state(contacts)
+  .state(contactsList)
+
+在方法调用和属性比较时可以直接引用状态对象： 
+	$state.transitionTo(states.contacts);
+	$state.current === states.contacts;
+	$state.includes(states.contacts)
+
+当一个状态是活动状态时 - 其所有的父状态都将成为活跃状态 
+   子状态将把其对应的模板加载到父状态对应模板的ui-view中。
+  
+子状态将从父状态继承哪些属性？
+  通过解决器解决的依赖注入项
+  自定义的data属性 重写（overwrite）data属性值
+  除了这些，没有其他属性继承下来（比如controllers、templates和url等）
+  
+  
