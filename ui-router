@@ -181,3 +181,16 @@ $stateProvider
   除了这些，没有其他属性继承下来（比如controllers、templates和url等）
   
   
+http://bubkoo.com/2014/01/01/angular/ui-router/guide/multiple-named-views/
+例子非常值得体会
+
+在模板中指定多个视图
+给ui-view指定名称，这样一个模板中就可以有多个ui-view
+当您需要使用多视图时，需要用到状态的views属性，views属性值是一个对象
+覆盖特点：如果在状态中定义了views属性，那么状态中的templateUrl、template 和 templateProvider属性将被忽略。
+视图名称之绝对名称／相对命名 
+视图名包含@ 绝对命名 否则 相对命名（相对父模板中对ui-view 而绝对命名指定了相对于哪个状态对模板）
+
+在 ui-router 内部，views属性中的每个视图都被按照viewname@statename的方式分配为绝对名称，
+viewname是目标模板中的ui-view对应的名称，statename是状态的名称，状态名称对应于一个目标模板。
+@前面部分为空表示未命名的ui-view，@后面为空则表示相对于根模板，通常是 index.html。
